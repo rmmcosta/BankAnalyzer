@@ -10,36 +10,38 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BankTransactionProcessorTest {
     private static final String NEWLINE = "\n";
-    BankTransactionProcessor bankTransactionProcessor;
-    ICategoriesProcessor categoriesProcessor;
+
+    BankTransactionAnalyzer bankTransactionAnalyzer;
 
     @BeforeEach
     void setUp() {
-        categoriesProcessor = new CategoriesProcessor();
-        categoriesProcessor.processCategoriesFile("src\\test\\resources\\TestCategories.csv");
-        bankTransactionProcessor = BankTransactionProcessor.processBankTransactionsFile("src\\test\\resources\\TestBankTransactions.csv", categoriesProcessor);
+        Set<Transaction> transactions;
+        transactions = BankTransactionProcessor.processBankTransactionsFile("src\\test\\resources\\TestBankTransactions.csv");
+        bankTransactionAnalyzer = new BankTransactionAnalyzer(transactions, "src\\test\\resources\\TestCategories.csv");
     }
 
     @Test
     void testBankTransactionsCount() {
-        assertEquals(2, bankTransactionProcessor.getBankTransactionsCount());
+        assertEquals(2, bankTransactionAnalyzer.getBankTransactionsCount());
     }
 
     @Test
     void testTotalProfitAndLoss() {
-        assertEquals(5900, bankTransactionProcessor.getTotalProfitAndLoss());
+        assertEquals(5900, bankTransactionAnalyzer.getTotalProfitAndLoss());
     }
 
     @Test
     void testTop10Expenses() {
-        Set<Transaction> top10Expenses1 = bankTransactionProcessor.getTop10Expenses();
+        Set<Transaction> top10Expenses1 = bankTransactionAnalyzer.getTop10Expenses();
         Set<Transaction> expectedTop10Expenses1 = new TreeSet<>();
         expectedTop10Expenses1.add(new Transaction("30-01-2017", -100, "Deliveroo"));
         assertEquals(expectedTop10Expenses1, top10Expenses1);
-        BankTransactionProcessor.processBankTransactionsFile("src\\test\\resources\\TestBankTransactionsLotOfExpenses.csv", categoriesProcessor);
-        //System.out.println(Transaction.printListTransactions(bankTransactionProcessor.getOrderedTransactions()));
-        assertEquals(15, bankTransactionProcessor.getBankTransactionsCount());//one transaction is the same
-        Set<Transaction> top10Expenses2 = bankTransactionProcessor.getTop10Expenses();
+        Set<Transaction> transactions;
+        transactions = BankTransactionProcessor.processBankTransactionsFile("src\\test\\resources\\TestBankTransactionsLotOfExpenses.csv");
+        bankTransactionAnalyzer = new BankTransactionAnalyzer(transactions, "src\\test\\resources\\TestBankTransactions.csv");
+        //System.out.println(Transaction.printListTransactions(bankTransactionAnalyzer.getOrderedTransactions()));
+        assertEquals(15, bankTransactionAnalyzer.getBankTransactionsCount());//one transaction is the same
+        Set<Transaction> top10Expenses2 = bankTransactionAnalyzer.getTop10Expenses();
         //System.out.println("top10Expenses2" + top10Expenses2);
         Set<Transaction> expectedTop10Expenses2 = new TreeSet<>();
         expectedTop10Expenses2.add(new Transaction("30-01-2017", -135, "Deliveroo"));
@@ -57,17 +59,17 @@ class BankTransactionProcessorTest {
 
     @Test
     void testCorrectCategoryWithMostExpenses() {
-        assertEquals("Food", bankTransactionProcessor.getCategoryWithMostExpenses());
+        assertEquals("Food", bankTransactionAnalyzer.getCategoryWithMostExpenses());
     }
 
     @Test
     void testBankTransactionsCountInJanuary() {
-        assertEquals(1, bankTransactionProcessor.getBankTransactionsCount("January"));
+        assertEquals(1, bankTransactionAnalyzer.getBankTransactionsCount("January"));
     }
 
     @Test
     void testBankTransactionsCountInFebruary() {
-        assertEquals(1, bankTransactionProcessor.getBankTransactionsCount("February"));
+        assertEquals(1, bankTransactionAnalyzer.getBankTransactionsCount("February"));
     }
 
     @Test
@@ -78,6 +80,6 @@ class BankTransactionProcessorTest {
                 30-01-2017,-100,Deliveroo
                 01-02-2017,6000,Salary
                 */
-        assertEquals(expectedPrint, Transaction.getListTransactionsToPrint(bankTransactionProcessor.getOrderedTransactions()));
+        assertEquals(expectedPrint, Transaction.getListTransactionsToPrint(bankTransactionAnalyzer.getOrderedTransactions()));
     }
 }

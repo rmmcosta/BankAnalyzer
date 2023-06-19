@@ -7,9 +7,14 @@ import java.util.Map;
 import static org.rmmcosta.FileHandle.getFileLines;
 
 public class CategoriesProcessor implements ICategoriesProcessor {
-    private final Map<String, String> _categories = new HashMap<>();
+    private final Map<String, String> _categories;
 
-    public void processCategoriesFile(String filePath) {
+    public CategoriesProcessor(String filePath) {
+        _categories = new HashMap<>();
+        processCategoriesFile(filePath);
+    }
+
+    private void processCategoriesFile(String filePath) {
         Arrays.stream(getFileLines(filePath)).forEach(line -> {
             String[] lineSplit = line.split(",");
             _categories.put(lineSplit[0].trim(), lineSplit[1].trim());

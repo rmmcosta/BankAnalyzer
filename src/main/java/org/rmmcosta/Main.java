@@ -1,5 +1,7 @@
 package org.rmmcosta;
 
+import java.util.Set;
+
 public class Main {
     public static void main(String[] args) {
         /*
@@ -10,14 +12,13 @@ public class Main {
             • What are his top-10 expenses?
             • Which category does he spend most of his money on?
          */
-        ICategoriesProcessor categoriesProcessor = new CategoriesProcessor();
-        categoriesProcessor.processCategoriesFile("src/main/resources/categories.csv");
-        BankTransactionProcessor bankTransactionProcessor = BankTransactionProcessor.processBankTransactionsFile("src/main/resources/BankTransactions.csv", categoriesProcessor);
-        System.out.println("Total profit and loss: " + bankTransactionProcessor.getTotalProfitAndLoss());
+        Set<Transaction> transactions = BankTransactionProcessor.processBankTransactionsFile("src/main/resources/BankTransactions.csv");
+        BankTransactionAnalyzer bankTransactionAnalyzer = new BankTransactionAnalyzer(transactions, "src/main/resources/categories.csv");
+        System.out.println("Total profit and loss: " + bankTransactionAnalyzer.getTotalProfitAndLoss());
         System.out.println("Top 10 expenses: ");
-        System.out.println(Transaction.getListTransactionsToPrint(bankTransactionProcessor.getTop10Expenses()));
-        System.out.println("Category with most money spent: " + bankTransactionProcessor.getCategoryWithMostExpenses());
-        System.out.println("Bank transactions count in January: " + bankTransactionProcessor.getBankTransactionsCount("January"));
-        System.out.println("Bank transactions count in February: " + bankTransactionProcessor.getBankTransactionsCount("February"));
+        System.out.println(Transaction.getListTransactionsToPrint(bankTransactionAnalyzer.getTop10Expenses()));
+        System.out.println("Category with most money spent: " + bankTransactionAnalyzer.getCategoryWithMostExpenses());
+        System.out.println("Bank transactions count in January: " + bankTransactionAnalyzer.getBankTransactionsCount("January"));
+        System.out.println("Bank transactions count in February: " + bankTransactionAnalyzer.getBankTransactionsCount("February"));
     }
 }
