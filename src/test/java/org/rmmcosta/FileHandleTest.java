@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -28,10 +29,10 @@ class FileHandleTest {
 
     @Test
     void testCorrectFileLines() {
-        String[] fileLines = fileHandle.getFileLines("src\\test\\resources\\TestFile.csv");
+        List<String> fileLines = fileHandle.getFileLines("src\\test\\resources\\TestFile.csv");
         String expectedLine1 = "Cenas,Coisas";
         String expectedLine2 = "Tal,Coiso";
-        assertEquals(expectedLine1, fileLines[0].replaceAll("\\s+", ""));
-        assertEquals(expectedLine2, fileLines[1].replaceAll("\\s+", ""));
+        assertEquals(expectedLine1, fileLines.get(0).replaceAll("\\s+", ""));
+        assertEquals(expectedLine2, fileLines.get(1).replaceAll("\\s+", ""));
     }
 }

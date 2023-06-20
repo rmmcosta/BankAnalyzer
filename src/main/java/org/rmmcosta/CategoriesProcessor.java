@@ -15,7 +15,7 @@ public class CategoriesProcessor implements ICategoriesProcessor {
     }
 
     private void processCategoriesFile(String filePath) {
-        Arrays.stream(getFileLines(filePath)).forEach(line -> {
+        getFileLines(filePath).forEach(line -> {
             String[] lineSplit = line.split(",");
             _categories.put(lineSplit[0].trim(), lineSplit[1].trim());
         });

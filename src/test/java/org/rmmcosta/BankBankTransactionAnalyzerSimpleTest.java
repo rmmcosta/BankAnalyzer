@@ -8,7 +8,7 @@ import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class BankTransactionAnalyzerSimpleTest {
+class BankBankTransactionAnalyzerSimpleTest {
     @Test
     void isTheTotalTransactionsCorrect() throws IOException {
         final Path path2TransactionsCSV = Paths.get("src/test/resources/BankTransactions.csv");
