@@ -2,39 +2,46 @@ package org.rmmcosta;
 
 import org.rmmcosta.domain.BankTransaction;
 
+import java.time.LocalDate;
 import java.time.Month;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class BankTransactionProcessor {
-    private final List<BankTransaction> _transaction;
-    private final Map<String, Double> _amountPerCategory;
+    private final List<BankTransaction> bankTransactions;
+    private final Map<String, Double> amountPerCategory;
+
+    private final ICategoriesProcessor categoriesProcessor;
 
     public BankTransactionProcessor(List<BankTransaction> transactions, String categoriesFilePath) {
-        _transaction = transactions;
-        _amountPerCategory = new HashMap<>();
+        bankTransactions = transactions;
+        amountPerCategory = new HashMap<>();
 
-        ICategoriesProcessor categoriesProcessor = new CategoriesProcessor(categoriesFilePath);
+        categoriesProcessor = new CategoriesProcessor(categoriesFilePath);
         for (BankTransaction bankTransaction : transactions) {
             String category = categoriesProcessor.getCategory(bankTransaction.entity());
-            if (_amountPerCategory.containsKey(category)) {
-                _amountPerCategory.replace(category, _amountPerCategory.get(category) + bankTransaction.amount());
+            if (amountPerCategory.containsKey(category)) {
+                amountPerCategory.replace(category, amountPerCategory.get(category) + bankTransaction.amount());
             } else {
-                _amountPerCategory.put(category, bankTransaction.amount());
+                amountPerCategory.put(category, bankTransaction.amount());
             }
         }
     }
 
+    public String getCategoryByEntity(String entity) {
+        return categoriesProcessor.getCategory(entity);
+    }
+
     public int calculateTransactionsCount() {
-        return _transaction.size();
+        return bankTransactions.size();
     }
 
     public double calculateTotalProfitAndLoss() {
-        return _transaction.stream().mapToDouble(BankTransaction::amount).sum();
+        return bankTransactions.stream().mapToDouble(BankTransaction::amount).sum();
     }
 
     public List<BankTransaction> calculateTop10Expenses() {
-        return _transaction.stream()
+        return bankTransactions.stream()
                 .filter(transaction -> transaction.amount() < 0)
                 .sorted()
                 .limit(10)
@@ -42,19 +49,42 @@ public class BankTransactionProcessor {
     }
 
     public String calculateCategoryWithMostExpenses() {
-        return _amountPerCategory.entrySet().stream().min(Map.Entry.comparingByValue()).get().getKey();
+        return amountPerCategory.entrySet().stream().min(Map.Entry.comparingByValue()).get().getKey();
     }
 
     public List<BankTransaction> getTransactions() {
-        return _transaction;
+        return bankTransactions;
     }
 
     //How many bank transactions are there in a particular month?
     public int calculateTransactionsCountPerMonth(Month month) {
-        return (int) _transaction.stream()
+        return (int) bankTransactions.stream()
                 .filter(transaction -> transaction.date().getMonth().equals(month))
                 .count();
     }
 
 
+    public List<BankTransaction> filterTransactionsGreaterThan(double amount) {
+        return bankTransactions.stream()
+                .filter(bankTransaction -> bankTransaction.amount() > amount)
+                .toList();
+    }
+
+    public List<BankTransaction> filterTransactionsGreaterThanByCategory(double amount, String category) {
+        return bankTransactions.stream()
+                .filter(bankTransaction -> bankTransaction.amount() > amount && getCategoryByEntity(bankTransaction.entity()).equals(category))
+                .toList();
+    }
+
+    public List<BankTransaction> filterTransactionsBetweenDates(LocalDate beginDate, LocalDate endDate) {
+        return bankTransactions.stream()
+                .filter(bankTransaction -> !bankTransaction.date().isBefore(beginDate) && !bankTransaction.date().isAfter(endDate))
+                .toList();
+    }
+
+    public List<BankTransaction> filterTransactions(IBankStatementFilter bankStatementFilter) {
+        return bankTransactions.stream()
+                .filter(bankStatementFilter::test)
+                .toList();
+    }
 }

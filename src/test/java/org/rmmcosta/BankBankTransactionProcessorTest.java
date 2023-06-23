@@ -95,4 +95,111 @@ class BankBankTransactionProcessorTest {
                 */
         assertEquals(expectedPrint, BankTransaction.getListTransactionsToPrint(bankTransactionProcessor.getTransactions()));
     }
+
+    @Test
+    void shouldReturnAllTransactionsAbove1000() {
+        bankTransactionProcessor = new BankTransactionProcessor(
+                bankStatementParser.parseStatements(
+                        FileHandle.getFileLines("src\\test\\resources\\BankTransactions.csv")
+                ),
+                "src\\test\\resources\\Categories.csv");
+        List<BankTransaction> expectedTransactions = new ArrayList<>();
+        expectedTransactions.add(new BankTransaction(LocalDate.of(2017, 2, 1), 6000, "Salary"));
+        expectedTransactions.add(new BankTransaction(LocalDate.of(2017, 2, 2), 2000, "Royalties"));
+        expectedTransactions.add(new BankTransaction(LocalDate.of(2017, 2, 3), 3000, "Tesco"));
+        expectedTransactions.add(new BankTransaction(LocalDate.of(2017, 3, 1), 6000, "Salary"));
+        assertEquals(expectedTransactions, bankTransactionProcessor.filterTransactionsGreaterThan(1000));
+    }
+
+    @Test
+    void shouldReturnAllIncomeTransactionsAbove1000() {
+        bankTransactionProcessor = new BankTransactionProcessor(
+                bankStatementParser.parseStatements(
+                        FileHandle.getFileLines("src\\test\\resources\\BankTransactions.csv")
+                ),
+                "src\\test\\resources\\Categories.csv");
+        List<BankTransaction> expectedTransactions = new ArrayList<>();
+        expectedTransactions.add(new BankTransaction(LocalDate.of(2017, 2, 1), 6000, "Salary"));
+        expectedTransactions.add(new BankTransaction(LocalDate.of(2017, 2, 2), 2000, "Royalties"));
+        expectedTransactions.add(new BankTransaction(LocalDate.of(2017, 3, 1), 6000, "Salary"));
+        assertEquals(expectedTransactions, bankTransactionProcessor.filterTransactionsGreaterThanByCategory(1000, "Income"));
+    }
+
+    @Test
+    void shouldReturnTheCorrectCategory() {
+        bankTransactionProcessor = new BankTransactionProcessor(
+                bankStatementParser.parseStatements(
+                        FileHandle.getFileLines("src\\test\\resources\\BankTransactions.csv")
+                ),
+                "src\\test\\resources\\Categories.csv");
+        assertEquals("Grocery", bankTransactionProcessor.getCategoryByEntity("Tesco"));
+    }
+
+    @Test
+    void shouldReturnCorrectTransactionsBetweenDates() {
+        bankTransactionProcessor = new BankTransactionProcessor(
+                bankStatementParser.parseStatements(
+                        FileHandle.getFileLines("src\\test\\resources\\BankTransactions.csv")
+                ),
+                "src\\test\\resources\\Categories.csv");
+        List<BankTransaction> expectedTransactions = new ArrayList<>();
+        expectedTransactions.add(new BankTransaction(LocalDate.of(2017, 2, 1), 6000, "Salary"));
+        expectedTransactions.add(new BankTransaction(LocalDate.of(2017, 2, 2), 2000, "Royalties"));
+        expectedTransactions.add(new BankTransaction(LocalDate.of(2017, 2, 2), -4000, "Rent"));
+        assertEquals(expectedTransactions, bankTransactionProcessor.filterTransactionsBetweenDates(LocalDate.of(2017, 2, 1), LocalDate.of(2017, 2, 2)));
+    }
+
+    @Test
+    void shouldReturnAllTransactionsAbove1000UsingGenericFilter() {
+        bankTransactionProcessor = new BankTransactionProcessor(
+                bankStatementParser.parseStatements(
+                        FileHandle.getFileLines("src\\test\\resources\\BankTransactions.csv")
+                ),
+                "src\\test\\resources\\Categories.csv");
+        List<BankTransaction> expectedTransactions = new ArrayList<>();
+        expectedTransactions.add(new BankTransaction(LocalDate.of(2017, 2, 1), 6000, "Salary"));
+        expectedTransactions.add(new BankTransaction(LocalDate.of(2017, 2, 2), 2000, "Royalties"));
+        expectedTransactions.add(new BankTransaction(LocalDate.of(2017, 2, 3), 3000, "Tesco"));
+        expectedTransactions.add(new BankTransaction(LocalDate.of(2017, 3, 1), 6000, "Salary"));
+        assertEquals(expectedTransactions, bankTransactionProcessor.filterTransactions(bankTransaction -> bankTransaction.amount() > 1000));
+    }
+
+    @Test
+    void shouldReturnAllIncomeTransactionsAbove1000UsingGenericFilter() {
+        bankTransactionProcessor = new BankTransactionProcessor(
+                bankStatementParser.parseStatements(
+                        FileHandle.getFileLines("src\\test\\resources\\BankTransactions.csv")
+                ),
+                "src\\test\\resources\\Categories.csv");
+        List<BankTransaction> expectedTransactions = new ArrayList<>();
+        expectedTransactions.add(new BankTransaction(LocalDate.of(2017, 2, 1), 6000, "Salary"));
+        expectedTransactions.add(new BankTransaction(LocalDate.of(2017, 2, 2), 2000, "Royalties"));
+        expectedTransactions.add(new BankTransaction(LocalDate.of(2017, 3, 1), 6000, "Salary"));
+        assertEquals(expectedTransactions, bankTransactionProcessor
+                .filterTransactions(bankTransaction -> bankTransaction.amount() > 1000
+                        && bankTransactionProcessor.getCategoryByEntity(bankTransaction.entity()).equals("Income")));
+    }
+
+    @Test
+    void shouldReturnCorrectTransactionsBetweenDatesUsingGenericFilter() {
+        bankTransactionProcessor = new BankTransactionProcessor(
+                bankStatementParser.parseStatements(
+                        FileHandle.getFileLines("src\\test\\resources\\BankTransactions.csv")
+                ),
+                "src\\test\\resources\\Categories.csv");
+        List<BankTransaction> expectedTransactions = new ArrayList<>();
+        expectedTransactions.add(new BankTransaction(LocalDate.of(2017, 2, 1), 6000, "Salary"));
+        expectedTransactions.add(new BankTransaction(LocalDate.of(2017, 2, 2), 2000, "Royalties"));
+        expectedTransactions.add(new BankTransaction(LocalDate.of(2017, 2, 2), -4000, "Rent"));
+        assertEquals(expectedTransactions, bankTransactionProcessor.filterTransactions(bankTransaction ->
+                        !bankTransaction
+                                .date()
+                                .isBefore(LocalDate.of(2017, 2, 1))
+                                &&
+                                !bankTransaction
+                                        .date()
+                                        .isAfter(LocalDate.of(2017, 2, 2))
+                )
+        );
+    }
 }

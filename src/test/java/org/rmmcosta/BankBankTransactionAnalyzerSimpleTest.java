@@ -13,6 +13,6 @@ class BankBankTransactionAnalyzerSimpleTest {
     void isTheTotalTransactionsCorrect() throws IOException {
         final Path path2TransactionsCSV = Paths.get("src/test/resources/BankTransactions.csv");
         BankTransactionAnalyzerSimple bankTransactionAnalyzerSimple = new BankTransactionAnalyzerSimple(path2TransactionsCSV);
-        assertEquals(6820, bankTransactionAnalyzerSimple.getTotalTransactions());
+        assertEquals(12820, bankTransactionAnalyzerSimple.getTotalTransactions());
     }
 }

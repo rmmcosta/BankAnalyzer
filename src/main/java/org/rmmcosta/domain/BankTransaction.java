@@ -2,7 +2,6 @@ package org.rmmcosta.domain;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
 
 public record BankTransaction(LocalDate date, double amount, String entity) implements Comparable<BankTransaction> {
     @Override

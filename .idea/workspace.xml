@@ -6,17 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="1bee865e-f369-4052-86fb-7f0c08a0d541" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/rmmcosta/BankTransactionAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/rmmcosta/BankTransactionAnalyzer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/rmmcosta/BankTransactionProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/rmmcosta/BankTransactionProcessor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/rmmcosta/CategoriesProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/rmmcosta/CategoriesProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/rmmcosta/FileHandle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/rmmcosta/FileHandle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/rmmcosta/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/rmmcosta/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/rmmcosta/domain/BankTransaction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/rmmcosta/BankTransactionAnalyzerSimpleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/rmmcosta/BankBankTransactionAnalyzerSimpleTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/rmmcosta/BankTransactionProcessorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/rmmcosta/BankBankTransactionProcessorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/rmmcosta/FileHandleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/rmmcosta/FileHandleTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/rmmcosta/TransactionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/rmmcosta/BankTransactionTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/TestBankTransactionsLotOfExpenses.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/TestBankTransactionsLotOfExpenses.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/rmmcosta/domain/BankTransaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/rmmcosta/domain/BankTransaction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/rmmcosta/BankBankTransactionProcessorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/rmmcosta/BankBankTransactionProcessorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/BankTransactions.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/BankTransactions.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,13 +36,16 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JUnit5 Test Class" />
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2Qq6k4Awy3PsesEArl2T7sH2jcc" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -65,13 +62,13 @@
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/rco/Documents/MyProjects/BankStatementsAnalyzer/src/main/resources"
+    "last_opened_file_path": "C:/Users/rco/Documents/MyProjects/BankStatementsAnalyzer/src/test/resources"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\rco\Documents\MyProjects\BankStatementsAnalyzer\src\main\resources" />
       <recent name="C:\Users\rco\Documents\MyProjects\BankStatementsAnalyzer\src\test\resources" />
+      <recent name="C:\Users\rco\Documents\MyProjects\BankStatementsAnalyzer\src\main\resources" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -80,21 +77,8 @@
       <recent name="org.rmmcosta" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.BankTransactionAnalyzer">
-    <configuration name="BankTransactionAnalyzer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.rmmcosta.BankTransactionAnalyzer" />
-      <module name="BankStatementsAnalyzer.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.rmmcosta.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="BankBankTransactionProcessorTest.printOrderedTransactions" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunManager" selected="Gradle.BankBankTransactionProcessorTest.shouldReturnAllSalaryTransactionsAbove1000">
+    <configuration name="BankBankTransactionProcessorTest.shouldReturnAllSalaryTransactionsAbove1000" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -107,7 +91,55 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;org.rmmcosta.BankBankTransactionProcessorTest.printOrderedTransactions&quot;" />
+            <option value="&quot;org.rmmcosta.BankBankTransactionProcessorTest.shouldReturnAllSalaryTransactionsAbove1000&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <ForceTestExec>true</ForceTestExec>
+      <method v="2" />
+    </configuration>
+    <configuration name="BankBankTransactionProcessorTest.shouldReturnAllTransactionsAbove1000" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;org.rmmcosta.BankBankTransactionProcessorTest.shouldReturnAllTransactionsAbove1000&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <ForceTestExec>true</ForceTestExec>
+      <method v="2" />
+    </configuration>
+    <configuration name="BankBankTransactionProcessorTest.shouldReturnTheCorrectCategory" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;org.rmmcosta.BankBankTransactionProcessorTest.shouldReturnTheCorrectCategory&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -142,30 +174,6 @@
       <ForceTestExec>true</ForceTestExec>
       <method v="2" />
     </configuration>
-    <configuration name="BankTransactionTest.testTransactionToString" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;org.rmmcosta.BankTransactionTest.testTransactionToString&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <ForceTestExec>true</ForceTestExec>
-      <method v="2" />
-    </configuration>
     <configuration name="Tests in 'BankStatementsAnalyzer.test'" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -190,11 +198,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.BankBankTransactionProcessorTest.testTop10Expenses" />
+        <item itemvalue="Gradle.BankBankTransactionProcessorTest.shouldReturnAllSalaryTransactionsAbove1000" />
+        <item itemvalue="Gradle.BankBankTransactionProcessorTest.shouldReturnTheCorrectCategory" />
+        <item itemvalue="Gradle.BankBankTransactionProcessorTest.shouldReturnAllTransactionsAbove1000" />
         <item itemvalue="Gradle.Tests in 'BankStatementsAnalyzer.test'" />
-        <item itemvalue="Gradle.BankTransactionTest.testTransactionToString" />
-        <item itemvalue="Gradle.BankBankTransactionProcessorTest.printOrderedTransactions" />
-        <item itemvalue="Application.BankTransactionAnalyzer" />
+        <item itemvalue="Gradle.BankBankTransactionProcessorTest.testTop10Expenses" />
       </list>
     </recent_temporary>
   </component>
